@@ -19,13 +19,13 @@ def do_deploy(archive_path):
 
     try:
         put(archive_path, '/tmp')
-        run('mkdir -p {}'.format(dest))
-        run('tar -xzf /tmp/{}.tgz -C {}'.format(name, dest))
-        run('rm -f /tmp/{}.tgz'.format(name))
-        run('mv {}/web_static/* {}/'.format(dest, dest))
-        run('rm -rf {}/web_static'.format(dest))
-        run('rm -rf /data/web_static/current')
-        run('ln -s {} /data/web_static/current'.format(dest))
+        run('sudo mkdir -p {}'.format(dest))
+        run('sudo tar -xzf /tmp/{}.tgz -C {}'.format(file_name, dest))
+        run('sudo rm -f /tmp/{}.tgz'.format(file_name))
+        run('sudo mv {}/web_static/* {}/'.format(dest, dest))
+        run('sudo rm -rf {}/web_static/'.format(dest))
+        run('sudo rm -rf /data/web_static/current')
+        run('sudo ln -s {} /data/web_static/current'.format(dest))
         return True
-    except:
+    except RuntimeError:
         return False
